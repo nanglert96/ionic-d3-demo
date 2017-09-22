@@ -50,7 +50,15 @@ export class BarChart extends SvgChart implements OnChanges {
     this.on('data.default', this.draw);
 
     // setup autoresize
-    // this.fit({mode: 'aspectRatio', ratio: 4/3}, true);
+    this.fit(
+      {
+        mode: 'aspectRatio', 
+        ratio: 4/3, 
+        maxWidth: window(el.nativeElement).innerWidth * 0.95,
+        maxHeight: window(el.nativeElement).innerWidth * 0.95 * 0.75,
+      }, 
+      true
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {

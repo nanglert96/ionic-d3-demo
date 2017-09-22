@@ -79,19 +79,21 @@ export class BarChart extends SvgChart implements OnChanges {
         .range([this.getInnerHeight(), 0]);
 
     // create a set of bars
-    let bars = this.rootG.selectAll('.bar').data(data);
-
-    // remove the bars (to prepare for re-drawing the chart)
-    bars.exit().remove();
+    const bars = this.rootG.selectAll('.bar').data(data);
 
     // (re)draw the bars (rectangles)
-    bars.enter().append('rect')
-        .attr('class', 'bar')
+    const barEntry = bars.enter().append('rect')
+        .attr('class', 'bar');
+
+    bars.merge(barEntry)
         .attr('x', (d: BarDatum) => this.xScale(d.x))
         .attr('width', this.xScale.bandwidth())
         .attr('y', (d: BarDatum) => this.yScale(+d.y))
         .attr('height', (d: BarDatum) => this.getInnerHeight() - this.yScale(+d.y))
         .style('fill', (d: BarDatum) => this.colors(d.x));
+
+    // remove the bars (to prepare for re-drawing the chart)
+    bars.exit().remove();
 
     // (re)draw the x axis
     this.xAxisG.attr('transform', `translate(0, ${this.getInnerHeight()})`).call(this.xAxis);

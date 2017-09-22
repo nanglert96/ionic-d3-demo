@@ -7,6 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ComponentsModule } from '../components/components.module';
+import { FeathersProvider } from '../providers/feathers/feathers';
+import { DataProvider } from '../providers/data/data';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ComponentsModule } from '../components/components.module';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FeathersProvider,
+    DataProvider
   ]
 })
 export class AppModule {}
